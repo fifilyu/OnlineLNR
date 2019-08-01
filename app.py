@@ -3,6 +3,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask
+from flask import render_template
 
 app = Flask(__name__)
 
@@ -13,7 +14,7 @@ app.config['JSON_AS_ASCII'] = False
 
 @app.route("/", methods=["GET"])
 def hello():
-    return "<h1>Hello World!<h1>"
+    return render_template("index.html")
 
 
 if __name__ == '__main__':
