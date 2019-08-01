@@ -1,0 +1,4 @@
+--index https://pypi.douban.com/simple/
+flask
+hyperlpr
+Pillow
