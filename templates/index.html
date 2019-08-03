@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css"/>
     <script src="/static/style.js"></script>
     <title>FlaskLNRDemo-在线车牌号码识别演示系统</title>
 </head>
@@ -10,10 +10,11 @@
     <h1>FlaskLNRDemo-在线车牌号码识别演示系统</h1>
 </div>
 <div>
-    <input type="file" placeholder="请上传含车牌的图片">
+    <form method=POST enctype=multipart/form-data action="{{ url_for('recognize') }}">
+        <input type="file" id=photo name=photo placeholder="请上传含车牌的图片" accept=".png,.jpg,.jpeg">
+        <input type=submit value="提交">
+    </form>
 </div>
-<div></div>
-<div></div>
 <div></div>
 </body>
 </html>
