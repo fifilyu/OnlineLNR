@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import cv2
-
+from pathlib import Path
 from flask import request
 from hyperlpr import HyperLPR_PlateRecogntion
 from util import allowed_file
@@ -27,9 +27,17 @@ def recognize():
 
     if photo and allowed_file(photo.filename):
         file_full_path = save_photo(photo)
+        path = Path(file_full_path)
+
+        if not path.is_file():
+            return make_api_response(1, '图片文件上传失败')
 
         # 识别车牌号码
         image = cv2.imread(file_full_path)
+
+        if image is None:
+            return make_api_response(1, 'OpenCV读取图片失败')
+
         result_list = HyperLPR_PlateRecogntion(image)
 
         # 识别成功
