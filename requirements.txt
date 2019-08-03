@@ -1,4 +1,6 @@
 --index https://pypi.douban.com/simple/
+werkzeug
 flask
 hyperlpr
 Pillow
+opencv-python
