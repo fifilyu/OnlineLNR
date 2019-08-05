@@ -13,7 +13,7 @@ app = Flask(__name__)
 # 不使用 ascii 编码来序列化JSON对象
 # 显示中文
 app.config['JSON_AS_ASCII'] = False
-app.secret_key = CFG_SECRET_KEY
+app.config['SECRET_KEY'] = CFG_SECRET_KEY
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['UPLOAD_FOLDER'] = CFG_UPLOAD_FOLDER
 
