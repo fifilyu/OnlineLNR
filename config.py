@@ -11,3 +11,5 @@ CFG_UPLOAD_FOLDER = 'static/uploads'
 CFG_ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 # Flask安全密钥
 CFG_SECRET_KEY = b'yYVyoJNNAIighAoRMU7j2MEAEGWUx1nTdVan9n6N'
+# 上传最大文件限制2MB
+CFG_UPLOAD_LIMIT = 2 * 1024 * 1024
