@@ -3,6 +3,7 @@
 
 from config import CFG_UPLOAD_FOLDER
 from config import CFG_SECRET_KEY
+from config import CFG_UPLOAD_LIMIT
 from flask import Flask
 from flask import render_template
 from flask import jsonify
