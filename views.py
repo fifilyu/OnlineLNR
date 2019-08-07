@@ -6,6 +6,7 @@ from pathlib import Path
 from flask import request
 from hyperlpr import HyperLPR_PlateRecogntion
 from util import allowed_file
+from util import mark_photo
 from util import make_api_response
 from util import check_uploaded_file1
 from util import check_uploaded_file2
@@ -26,14 +27,14 @@ def recognize():
         return make_api_response(1, '接收到空图片。请选择上传文件')
 
     if photo and allowed_file(photo.filename):
-        file_full_path = save_photo(photo)
-        path = Path(file_full_path)
+        relative_path = save_photo(photo)
+        path = Path(relative_path)
 
         if not path.is_file():
             return make_api_response(1, '图片文件上传失败')
 
         # 识别车牌号码
-        image = cv2.imread(file_full_path)
+        image = cv2.imread(relative_path)
 
         if image is None:
             return make_api_response(1, 'OpenCV读取图片失败')
@@ -47,10 +48,32 @@ def recognize():
                 confidence = result_list[0][1]
                 location = result_list[0][2]
 
+                top_left_x = location[0]
+                top_left_y = location[1]
+
+                top_right_x = location[2]
+                top_right_y = location[1]
+
+                bottom_right_x = location[2]
+                bottom_right_y = location[3]
+
+                bottom_left_x = location[0]
+                bottom_left_y = location[3]
+
+                rectangle_point_locations = [
+                    (top_left_x, top_left_y),
+                    (top_right_x, top_right_y),
+                    (bottom_right_x, bottom_right_y),
+                    (bottom_left_x, bottom_left_y)
+                ]
+
+                result_photo = mark_photo(relative_path, (top_left_x, top_left_y), (bottom_right_x, bottom_right_y))
+
                 return make_api_response(status=0,
-                                         msg='',
+                                         msg='车牌号码识别成功......',
                                          plate=plate,
                                          confidence=float(confidence),
-                                         location=location)
+                                         result_photo=result_photo,
+                                         location=rectangle_point_locations)
 
-    return make_api_response(1, '车牌号码识别失败')
+    return make_api_response(status=1, msg='车牌号码识别失败！', result_photo=relative_path)

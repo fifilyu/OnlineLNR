@@ -1,182 +1,195 @@
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>在线车牌号识别</title>
-    <link rel="stylesheet" type="text/css"
-          href="../static/font.css"/>
-    <link rel="stylesheet" type="text/css" href="../static/style.css"/>
+    <link rel="shortcut icon" href="/static/imgs/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/static/css/fontawesome_all.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/online_lnr.css" />
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
 </head>
+
 <body>
-<div id="header">
-    <div class="container">
-        <div class="row no-gutter">
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                <h1 id="header-logo">
-                    <a id="header-logo-img" href="/">
-                        <img src="../static/img/little_man.png"
-                             alt="Base64 Image Encoder" height="50">
-                    </a>
-                </h1>
-            </div>
-            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                <a href="/" class="pull-right">
-                    <img src="../static/img/github.jpg" style="height: 50px; margin-top: 10px;">
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="drag-area">
-    <div class="container">
-        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-            <img id="mr-base64" src="../static/img/car.png" alt="Mr. Base" width="280">
-        </div>
-        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-            <h2 id="drag-box-title">
-                在线车牌号码
-                识别系统
-            </h2>
-            <div id="drag-target-box" class="row dz-clickable" data-max-file-size="1" data-max-file-count="20">
-                <div id="drag-target" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 dragFile">
-                    内容只限.png,.jpg,.jpeg
+    <div id="header">
+        <div class="container">
+            <div class="row no-gutter">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <h1 id="header-logo">
+                        <a id="header-logo-img" href="/">
+                            <img src="/static/imgs/machine_eye.jpg" alt="Base64 Image Encoder" height="50">
+                        </a>
+                    </h1>
                 </div>
-                <div class="button operating-button col-lg-4 col-md-4 col-sm-4 col-xs-4" id="click-target">点击上传</div>
-                <form action="{{ url_for('recognize') }}" id="fileUpdate-form" method=POST enctype=multipart/form-data>
-                    <input type="file" name="photo" id="fileUpdate-input" style="display: none">
-                </form>
-                <script type="text/javascript">
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                    <!-- navigation: mobile -->
+                    <a id="menu-button-mobile" class="fa fa-bars pull-right"
+                        href="javascript:base64Global.prototype.toggleMobileMenu();"></a>
 
-                    // 实现拖拽
-                    const dragbox = document.querySelector('.dragFile');
-                    dragbox.addEventListener('dragover', function (e) {
-                        e.preventDefault(); // 必须阻止默认事件
-                        // $(drag_overlay_div).addClass('drag-overlay');//添加背景变化
-                    }, false);
-                    dragbox.addEventListener('drop', function (e) {
-                        e.preventDefault(); // 阻止默认事件
+                    <!-- navigation: desktop + tablet -->
+                    <ul id="menu" class="pull-right">
+                        <li class="menu-item  menu-item-current ">
+                            <a href="https://www.base64-image.de">
+                                说明
+                            </a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="https://www.base64-image.de/tutorial">
+                                文件格式
+                            </a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="https://www.base64-image.de/faq">
+                                浏览器支持
+                            </a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/" class="menu-item ">
+                                <i class="fa fa-heart"></i>
+                                <img src="/static/imgs/GitHub_Logo.png" style="height: 30px;">
+                            </a>
+                        </li>
 
-                        document.getElementById("fileUpdate-input").files = event.dataTransfer.files;
-                        document.getElementById('fileUpdate-form').submit();
-                    }, false);
-
-                    // 点击上传
-                    var fileUpdate_button = document.getElementById("click-target");
-                    var fileUpdate_input = document.getElementById("fileUpdate-input");
-                    var fileUpdate_form = document.getElementById("fileUpdate-form");
-
-                    fileUpdate_button.onclick = function () {
-                        fileUpdate_input.click();
-                    }
-                    fileUpdate_input.onchange = function () {
-                        fileUpdate_form.submit();
-                    }
-                </script>
+                    </ul>
+                </div>
             </div>
-            <img id="convert-arrow" src="../static/img/箭头.png" alt=""
-                 width="164" height="74">
         </div>
     </div>
-</div>
-<div class="container content-box">
-    <div class="row description">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <h3 class="content-box-title">图片演示</h3>
-            <img src="../static/uploads" style="height: 200px;">
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <h3 class="content-box-title">识别信息</h3>
+    <div id="drag-area">
+        <div class="container">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                <img id="big_logo" src="/static/imgs/car.png" width="280">
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                <div>
+                    <h2 id="drag-box-title">
+                        <div>
+                            在线车牌号码
+                        </div>
+                        <div>
+                            识别系统
+                        </div>
+                    </h2>
+                </div>
+                <form action="{{ url_for('recognize') }}" id="upload_form" method=POST enctype=multipart/form-data> <div
+                    id="drag-target-box" class="row" data-max-file-size="1" data-max-file-count="20">
+                    <div id="drag-target" class="col-lg-8 col-md-8 col-sm-8 col-xs-8 dragFile">
+                        <span>拖拽图片到浏览器内</span>
+                    </div>
+                    <div class="button operating-button col-lg-4 col-md-4 col-sm-4 col-xs-4" id="click-target">
+                        <span>或 点击上传</span>
+                        <input type="file" name="photo" id="upload_input" style="display: none">
+                    </div>
+            </div>
+            </form>
             <div>
-                <p>识别号牌：川EZA639</p>
+                <img id="convert-arrow" src="/static/imgs/arrow.png" alt="" width="164" height="74">
             </div>
-            <div>
-                <p>号牌坐标：67,89,90,34</p>
-            </div>
-
-            <ul>
-                <li>
-                    <h3>名称:</h3>
-                </li>
-                <li>
-                    <h3>像素位置:</h3>
-                </li>
-            </ul>
         </div>
     </div>
-</div>
-<br>
-<div class="container content-box">
-    <div class="row description">
-
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <h3 class="content-box-title">说明</h3>
-            <p>
-                You can upload up to 20 images (max. 1.00 MB each) as JPG, PNG, GIF, WebP, SVG or BMP.<br>
-                <br>
-                Please note that Internet Explorer 8 has a limit of 32 KB for <a
-                    href="http://en.wikipedia.org/wiki/Data_URI_scheme" target="_blank">data URI</a>.
-                Versions below have no support.
-            </p>
-        </div>
-
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <h3 class="content-box-title">文件格式</h3>
-            <p>
-                <br>
-                你最多可以上传20张图片，每张最大在1M，格式可以为JPG、PNG、GIF、WebP、SVG或BMP
-                <br>
-                <br>
-                请注意Internet Explorer 8的大小限制为32 KB <a
-                    href="http://en.wikipedia.org/wiki/Data_URI_scheme" target="_blank">这些</a>.
-                下面的版本不支持。
-            </p>
-        </div>
-
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <h3 class="content-box-title">浏览器支持</h3>
-            <p>
-                经过编码的结果与以下所有浏览器和版本兼容。如果有什么问题，请给我联系我。
-            </p>
-            <ul id="browser-support">
-                <li>
-                    <img src="../static/brower_img/chrome_24x24-a7ca66e6b4.png"
-                         alt=""
-                         width="24" height="24" title="Google Chrome">Chrome 4+
-                </li>
-                <li>
-                    <img src="../static/brower_img/safari_24x24-4b9304e7c1.png"
-                         alt=""
-                         width="24" height="24" title="Apple Safari">Safari 3.1+
-                </li>
-                <li>
-                    <img src="../static/brower_img/firefox_24x24-9cb479bf41.png"
-                         alt=""
-                         width="24" height="24" title="Mozilla Firefox">Firefox 2+
-                </li>
-                <li>
-                    <img src="../static/brower_img/opera_24x24-1e135b7c74.png"
-                         alt=""
-                         width="24" height="24" title="Opera">Opera 9+
-                </li>
-                <li>
-                    <img src="../static/brower_img/edge_24x24-11efc6ad6b.png"
-                         alt=""
-                         width="24" height="24" title="Microsoft Edge">Edge
-                </li>
-                <li>
-                    <img src="../static/brower_img/ie9-10_24x24-4a2e4800a5.png"
-                         alt=""
-                         width="24" height="24" title="Microsoft Internet Explorer">IE 8+
-                </li>
-            </ul>
+    </div>
+    <div id="div_msg" class="container content-box">
+        <div id="span_msg_title" class="line">识别结果：</div>
+        <div id="span_msg" class="line"></div>
+    </div>
+    <div class="container content-box">
+        <div class="row description">
+            <div class="col-md-6">
+                <img id="result_photo" src="/static/imgs/default_car.jpg" style="height: 400px;">
+            </div>
+            <div class="col-md-6">
+                <div class="car_info">
+                    <label for="span_plate">车牌号码：</label>
+                    <span id="span_plate"></span>
+                </div>
+                <div class="car_info">
+                    <label for="span_confidence">可信度：</label>
+                    <span id="span_confidence"></span>
+                </div>
+                <div class="car_info">
+                    <label for="span_location">矩形号牌坐标：</label>
+                    <div class="car_info_item">
+                        <div>
+                            <label for="span_top">顶部<i class="fa fa-hand-point-right"></i></label>
+                            <span id="span_top_left"></span>
+                            <span id="span_top_right"></span>
+                        </div>
+                        <div>
+                            <label for="span_bottom">底部<i class="fa fa-hand-point-right"></i></label>
+                            <span id="span_bottom_left"></span>
+                            <span id="span_bottom_right"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<div class="foot" style="text-align: center;">
     <br>
-    <br>
-    <p class="">极客营</p>
-</div>
-<!--<div id="drag-overlay">-->
+    <div class="container content-box">
+        <div class="row description">
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <h3 class="content-box-title">说明</h3>
+                <p>
+                    本系统为开源项目，代码地址： <a href="https://github.com/himrkeyboard/FlaskLNRDemo">FlaskLNRDemo</a>。<br>
+                    <br>
+                    请遵循GPL3.0许可使用本项目代码。如有任何问题或建议，请提交 <a href="https://github.com/himrkeyboard/FlaskLNRDemo/issues">New issues</a> 。
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <h3 class="content-box-title">文件格式</h3>
+                <p>
+                    你可以上传一个小于2M的图片，格式支持 JPG、JPEG、PNG。<br>
+                    <br>
+                    可以使用拖拽或选择文件的方式上传包含车牌号的图片。
+                </p>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <h3 class="content-box-title">浏览器支持</h3>
+                <p>
+                    经过编码的结果与以下所有浏览器和版本兼容。如果有什么问题，请给我联系我。
+                </p>
+                <ul id="browser-support">
+                    <li>
+                        <img src="/static/imgs/chrome_24x24-a7ca66e6b4.png" alt="" width="24" height="24"
+                            title="Google Chrome">Chrome 4+
+                    </li>
+                    <li>
+                        <img src="/static/imgs/safari_24x24-4b9304e7c1.png" alt="" width="24" height="24"
+                            title="Apple Safari">Safari 3.1+
+                    </li>
+                    <li>
+                        <img src="/static/imgs/firefox_24x24-9cb479bf41.png" alt="" width="24" height="24"
+                            title="Mozilla Firefox">Firefox 2+
+                    </li>
+                    <li>
+                        <img src="/static/imgs/opera_24x24-1e135b7c74.png" alt="" width="24" height="24" width="24"
+                            height="24" title="Opera">Opera 9+
+                    </li>
+                    <li>
+                        <img src="/static/imgs/edge_24x24-11efc6ad6b.png" alt="" width="24" height="24"
+                            title="Microsoft Edge">Edge
+                    </li>
+                    <li>
+                        <img src="/static/imgs/ie9-10_24x24-4a2e4800a5.png" alt="" width="24" height="24"
+                            title="Microsoft Internet Explorer">IE 8+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="footer" class="container">
+        © 2019 <a href="https://github.com/himrkeyboard" target="_aselank">Mr. Keyboard</a>
+        &nbsp; - &nbsp;
+        <a href="https://github.com/paulirish/browser-logos" target="_blank">Browser Icons</a> by <a
+            href="http://www.paulirish.com/" target="_blank">Paul Irish</a>
+        &nbsp; - &nbsp;
+        <a href="https://github.com/himrkeyboard/FlaskLNRDemo/blob/master/LICENSE">LICENSE</a>
+    </div>
+    <div id="drag-overlay"></div>
+    <script src="/static/js/index.js"></script>
 </body>
+
 </html>

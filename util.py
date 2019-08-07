@@ -7,7 +7,11 @@ import uuid
 from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 from config import CFG_ALLOWED_EXTENSIONS
+from config import CFG_RESULT_FOLDER
 from config import CFG_UPLOAD_FOLDER
+from pathlib import Path
+from PIL import Image
+from PIL import ImageDraw
 
 
 def get_ext(filename):
@@ -68,7 +72,7 @@ def check_uploaded_file2(filename: str):
     return filename != ''
 
 
-def make_api_response(status: int, msg: str, plate='', confidence=0.0, location=None):
+def make_api_response(status: int, msg: str, plate='', confidence=0.0, result_photo='', location=None):
     """
     根据参数生成接口数据结构
 
@@ -76,17 +80,19 @@ def make_api_response(status: int, msg: str, plate='', confidence=0.0, location=
     :param msg: 提示信息
     :param plate: 车牌号码
     :param confidence: 可信度
+    :param result_photo: 标记的照片路径
     :param location: 像素位置列表
     :return:
     """
-
     if location is None:
         location = []
+
     api_response = {
         'status': status if status in [0, 1] else 1,
         'message': msg,
         'plate': plate,
-        'confidence': confidence,
+        'result_photo': result_photo,
+        'confidence': ('%.2f%%' % (confidence * 100)),
         'location': location
     }
 
@@ -97,15 +103,50 @@ def save_photo(file_storage: FileStorage):
     """
     保存用户上传的图片
     :param file_storage: 上传文件对象
-    :return: 返回文件保存绝对路径
+    :return: 返回文件相对路径
     """
     ext = get_ext(file_storage.filename)
     new_filename = get_new_filename(ext)
     # 转换为安全文件名
     new_filename = secure_filename(new_filename)
 
-    # 绝对路径文件名
-    file_full_path = os.path.abspath(os.path.join(CFG_UPLOAD_FOLDER, new_filename))
-    file_storage.save(file_full_path)
+    relative_path = os.path.join(CFG_UPLOAD_FOLDER, new_filename)
+    file_storage.save(relative_path)
 
-    return file_full_path
+    return relative_path
+
+
+def draw_rectangle(draw, coordinates, color, width=1):
+    """
+    画一个矩形，并且可以控制边框线粗细。
+    :param draw: ImageDraw 对象
+    :param coordinates: 顶部左边和底部右边的坐标值
+    :param color: 矩形颜色
+    :param width: 矩形边框粗细
+    :return: None
+    """
+    for i in range(width):
+        rect_start = (coordinates[0][0] - i, coordinates[0][1] - i)
+        rect_end = (coordinates[1][0] + i, coordinates[1][1] + i)
+        draw.rectangle((rect_start, rect_end), outline = color)
+
+
+def mark_photo(old_photo_path: str, top_left: tuple, bottom_right: tuple):
+    """
+    在识别成功的照片上标记出车牌号坐标。
+    :param old_photo_path: 用户上传照片的相对路径
+    :param top_left: 矩形顶部左边坐标
+    :param bottom_right: 矩形底部右边坐标
+    :return: 标记图片相对路径
+    """
+
+    ext = get_ext(old_photo_path)
+    new_filename = get_new_filename(ext)
+    relative_path = os.path.join(CFG_RESULT_FOLDER, new_filename)
+
+    image = Image.open(old_photo_path)
+    draw = ImageDraw.Draw(image)
+    draw_rectangle(draw, (top_left, bottom_right), color='red', width=10)
+    image.save(relative_path)
+
+    return relative_path
