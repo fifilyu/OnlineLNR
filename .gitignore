@@ -5,6 +5,7 @@ __pycache__/
 
 .idea/
 static/uploads/
+static/results/
 
 # C extensions
 *.so
