@@ -1,2 +1,2 @@
-# FlaskLNRDemo
-基于Flask的在线车牌号码识别演示系统
+# OnlineLNR
+基于Flask和HyperLPR的在线车牌号码识别系统
