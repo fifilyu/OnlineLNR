@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import os
+import time
 
 import cv2
 from pathlib import Path
+
+from PIL import Image
 from flask import request
 from hyperlpr import HyperLPR_PlateRecogntion
 from util import allowed_file
@@ -26,54 +30,76 @@ def recognize():
     if not check_uploaded_file2(photo.filename):
         return make_api_response(1, '接收到空图片。请选择上传文件')
 
-    if photo and allowed_file(photo.filename):
-        relative_path = save_photo(photo)
-        path = Path(relative_path)
+    if not (photo and allowed_file(photo.filename)):
+        return make_api_response(1, '上传的文件格式无效。')
 
-        if not path.is_file():
-            return make_api_response(1, '图片文件上传失败')
+    relative_path = save_photo(photo)
+    path = Path(relative_path)
 
-        # 识别车牌号码
-        image = cv2.imread(relative_path)
+    if not path.is_file():
+        return make_api_response(1, '图片文件上传失败')
 
-        if image is None:
-            return make_api_response(1, 'OpenCV读取图片失败')
+    image = Image.open(relative_path)
+    img_dpi = "%dx%d" % (image.size[0], image.size[1])
+    img_format = image.format
+    img_size = "%dKB" % (os.path.getsize(relative_path) / 1024)
 
-        result_list = HyperLPR_PlateRecogntion(image)
+    start = time.clock()
+    # 识别车牌号码
+    image = cv2.imread(relative_path)
 
-        # 识别成功
-        if result_list and len(result_list) == 1:
-            if result_list[0] and len(result_list[0]) == 3:
-                plate = result_list[0][0]
-                confidence = result_list[0][1]
-                location = result_list[0][2]
+    if image is None:
+        return make_api_response(status=1,
+                                 msg='OpenCV读取图片失败',
+                                 result_photo=relative_path,
+                                 img_dpi=img_dpi,
+                                 img_format=img_format,
+                                 img_size=img_size)
 
-                top_left_x = location[0]
-                top_left_y = location[1]
+    result_list = HyperLPR_PlateRecogntion(image)
+    elapsed = "%.2fs" % (time.clock() - start)
 
-                top_right_x = location[2]
-                top_right_y = location[1]
+    if not (result_list and len(result_list) == 1) or not (result_list[0] and len(result_list[0]) == 3):
+        return make_api_response(status=1,
+                                 msg='操作成功，但未找到有效车牌号',
+                                 result_photo=relative_path,
+                                 img_dpi=img_dpi,
+                                 img_format=img_format,
+                                 img_size=img_size,
+                                 used_time=elapsed)
 
-                bottom_right_x = location[2]
-                bottom_right_y = location[3]
+    plate = result_list[0][0]
+    confidence = result_list[0][1]
+    location = result_list[0][2]
 
-                bottom_left_x = location[0]
-                bottom_left_y = location[3]
+    top_left_x = location[0]
+    top_left_y = location[1]
 
-                rectangle_point_locations = [
-                    (top_left_x, top_left_y),
-                    (top_right_x, top_right_y),
-                    (bottom_right_x, bottom_right_y),
-                    (bottom_left_x, bottom_left_y)
-                ]
+    top_right_x = location[2]
+    top_right_y = location[1]
 
-                result_photo = mark_photo(relative_path, (top_left_x, top_left_y), (bottom_right_x, bottom_right_y))
+    bottom_right_x = location[2]
+    bottom_right_y = location[3]
 
-                return make_api_response(status=0,
-                                         msg='车牌号码识别成功......',
-                                         plate=plate,
-                                         confidence=float(confidence),
-                                         result_photo=result_photo,
-                                         location=rectangle_point_locations)
+    bottom_left_x = location[0]
+    bottom_left_y = location[3]
 
-    return make_api_response(status=1, msg='车牌号码识别失败！', result_photo=relative_path)
+    rectangle_point_locations = [
+        (top_left_x, top_left_y),
+        (top_right_x, top_right_y),
+        (bottom_right_x, bottom_right_y),
+        (bottom_left_x, bottom_left_y)
+    ]
+
+    result_photo = mark_photo(relative_path, (top_left_x, top_left_y), (bottom_right_x, bottom_right_y))
+
+    return make_api_response(status=0,
+                             msg='车牌号码识别成功......',
+                             plate=plate,
+                             confidence=float(confidence),
+                             result_photo=result_photo,
+                             location=rectangle_point_locations,
+                             img_dpi=img_dpi,
+                             img_format=img_format,
+                             img_size=img_size,
+                             used_time=elapsed)

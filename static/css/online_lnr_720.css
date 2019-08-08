@@ -1,0 +1,55 @@
+@media (max-width: 720px) {
+    .big_logo {
+        margin-top: 80px;
+        width: 130px;
+    }
+
+    #mobile-form {
+        display: block
+    }
+
+    #menu-button-mobile {
+        display: block
+    }
+
+    #menu {
+        display: none;
+    }
+
+    .drag-box-title {
+        font-size: 20px;
+        line-height: 32px;
+        margin-top: 40px;
+    }
+
+    #convert-arrow,
+    #drag_target_box {
+        display: none
+    }
+
+    .result_photo {
+        max-width: 100%;
+        height: 235px;
+    }
+
+    .result_photo_div {
+        text-align: center;
+    }
+
+    .mobile_blank_div {
+        padding-top: 20px;
+    }
+
+    .car_div{
+        text-align: left;
+    }
+
+    label {
+        width: 120px;
+        text-align: right;
+        font-size: 15px;
+        font-weight: bold;
+    
+        /* border: 1px solid rebeccapurple; */
+    }
+}

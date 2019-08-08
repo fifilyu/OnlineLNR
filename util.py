@@ -72,7 +72,16 @@ def check_uploaded_file2(filename: str):
     return filename != ''
 
 
-def make_api_response(status: int, msg: str, plate='', confidence=0.0, result_photo='', location=None):
+def make_api_response(status: int,
+                      msg: str,
+                      plate='',
+                      confidence=0.0,
+                      result_photo='',
+                      location=None,
+                      img_dpi=(),
+                      img_format='',
+                      img_size=0,
+                      used_time=0):
     """
     根据参数生成接口数据结构
 
@@ -82,6 +91,10 @@ def make_api_response(status: int, msg: str, plate='', confidence=0.0, result_ph
     :param confidence: 可信度
     :param result_photo: 标记的照片路径
     :param location: 像素位置列表
+    :param img_dpi: 图片分辨率
+    :param img_format: 图片格式
+    :param img_size: 图片大小，单位KB
+    :param used_time: 识别车牌消耗时间，单位秒
     :return:
     """
     if location is None:
@@ -93,7 +106,11 @@ def make_api_response(status: int, msg: str, plate='', confidence=0.0, result_ph
         'plate': plate,
         'result_photo': result_photo,
         'confidence': ('%.2f%%' % (confidence * 100)),
-        'location': location
+        'location': location,
+        'img_dpi': img_dpi,
+        'img_format': img_format,
+        'img_size': img_size,
+        'used_time': used_time
     }
 
     return api_response
