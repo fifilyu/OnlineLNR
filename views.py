@@ -23,15 +23,15 @@ def recognize():
     :return: dict
     """
     if not check_uploaded_file1('photo', request.files):
-        return make_api_response(1, '未找到匹配的图片')
+        return make_api_response(2, '未找到匹配的图片')
 
     photo = request.files.get('photo')
 
     if not check_uploaded_file2(photo.filename):
-        return make_api_response(1, '接收到空图片。请选择上传文件')
+        return make_api_response(2, '接收到空图片。请选择上传文件')
 
     if not (photo and allowed_file(photo.filename)):
-        return make_api_response(1, '上传的文件格式无效。')
+        return make_api_response(2, '上传的文件格式无效。')
 
     relative_path = save_photo(photo)
     photo_path = Path(relative_path)
