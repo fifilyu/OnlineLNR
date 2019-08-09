@@ -1,12 +1,15 @@
 function show_car_info(api_data) {
-    document.getElementById("result_photo").src = api_data.result_photo;
+    document.getElementById("result_photo").src = "/imgs/results/" + api_data.result_photo;
 
     document.getElementById("span_msg").innerHTML = api_data.message;
 
-    if (api_data.status == "0")
+    if (api_data.status == "0") {
+        document.getElementById("result_photo").src = "/imgs/results/" + api_data.result_photo;
         document.getElementById("span_msg").className = "success";
-    else
+    } else {
+        document.getElementById("result_photo").src = "/imgs/uploads/" + api_data.result_photo;
         document.getElementById("span_msg").className = "failed";
+    }
 
     document.getElementById("span_plate").innerHTML = api_data.plate;
     document.getElementById("span_top_left").innerHTML = "<i class=\"fa fa-chevron-left\"></i>" + api_data.location[0] + "<i class=\"fa fa-chevron-right\"></i>,";
@@ -26,7 +29,7 @@ function load_listener() {
         "status": 1,
         "message": "",
         "plate": "未识别",
-        "result_photo": "/static/imgs/default_car.jpg",
+        "result_photo": "/imgs/online_lnr/default_car.jpg",
         "confidence": 0.0,
         "location": [0, 0, 0, 0],
         "img_dpi": "未识别",
@@ -84,7 +87,7 @@ function check_photo_size(photo) {
     MAX_SIZE = 2 * 1024 * 1024;
 
     if (photo.size > MAX_SIZE) {
-        show_car_info("图片不能大于2M，请重新选择图片", "/static/imgs/default_car.jpg", "未识别", [0, 0, 0, 0], "未识别", "failed");
+        show_car_info("图片不能大于2M，请重新选择图片", "/imgs/online_lnr/default_car.jpg", "未识别", [0, 0, 0, 0], "未识别", "failed");
         alert("图片不能大于2M，请重新选择图片");
         return 1;
     }

@@ -34,9 +34,9 @@ def recognize():
         return make_api_response(1, '上传的文件格式无效。')
 
     relative_path = save_photo(photo)
-    path = Path(relative_path)
+    photo_path = Path(relative_path)
 
-    if not path.is_file():
+    if not photo_path.is_file():
         return make_api_response(1, '图片文件上传失败')
 
     image = Image.open(relative_path)
@@ -51,7 +51,7 @@ def recognize():
     if image is None:
         return make_api_response(status=1,
                                  msg='OpenCV读取图片失败',
-                                 result_photo=relative_path,
+                                 result_photo=photo_path.name,
                                  img_dpi=img_dpi,
                                  img_format=img_format,
                                  img_size=img_size)
@@ -62,7 +62,7 @@ def recognize():
     if not (result_list and len(result_list) == 1) or not (result_list[0] and len(result_list[0]) == 3):
         return make_api_response(status=1,
                                  msg='操作成功，但未找到有效车牌号',
-                                 result_photo=relative_path,
+                                 result_photo=photo_path.name,
                                  img_dpi=img_dpi,
                                  img_format=img_format,
                                  img_size=img_size,
@@ -97,7 +97,7 @@ def recognize():
                              msg='车牌号码识别成功......',
                              plate=plate,
                              confidence=float(confidence),
-                             result_photo=result_photo,
+                             result_photo=Path(result_photo).name,
                              location=rectangle_point_locations,
                              img_dpi=img_dpi,
                              img_format=img_format,

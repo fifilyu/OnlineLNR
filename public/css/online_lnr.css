@@ -113,7 +113,7 @@ a.no-decoration {
 }
 
 #menu .menu-item-current a:after {
-    background: url(/static/imgs/current-menu-item.png) no-repeat;
+    background: url(/imgs/online_lnr/current-menu-item.png) no-repeat;
     bottom: -9px;
     content: "";
     display: block;
@@ -257,7 +257,7 @@ a.no-decoration {
     color: #e84c3d;
 }
 
-.drag-overlay {
+.drag_overlay {
     background-color: #262626;
     display: block;
     height: 100%;

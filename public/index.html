@@ -7,26 +7,26 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>在线车牌号识别</title>
-    <link rel="shortcut icon" href="/static/imgs/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="/static/css/fontawesome_all.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
+    <link rel="shortcut icon" href="/imgs/online_lnr/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/css/fontawesome_all.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
 
     <script type="text/javascript">
         var ver = Math.random()
         var args_str = "?" + ver
 
-        document.write("<link rel='stylesheet' type='text/css' href='/static/css/online_lnr.css" + args_str +"' />")
-        document.write("<link rel='stylesheet' media='(max-width: 320px)' href='/static/css/online_lnr_320.css" + args_str +"' />")
-        document.write("<link rel='stylesheet' media='(max-width: 360px)' href='/static/css/online_lnr_360.css" + args_str +"' />")
-        document.write("<link rel='stylesheet' media='(max-width: 400px)' href='/static/css/online_lnr_400.css" + args_str +"' />")
-        document.write("<link rel='stylesheet' media='(max-width: 720px)' href='/static/css/online_lnr_720.css" + args_str +"' />")
-        // document.write("<link rel='stylesheet' media='(max-width: 750px)' href='/static/css/online_lnr_750.css" + args_str +" />")
-        // document.write("<link rel='stylesheet' media='(max-width: 768px)' href='/static/css/online_lnr_768.css" + args_str +"' />")
-        // document.write("<link rel='stylesheet' media='(max-width: 828px)' href='/static/css/online_lnr_828.css" + args_str +"' />")
-        // document.write("<link rel='stylesheet' media='(max-width: 1080px)' href='/static/css/online_lnr_1080.css" + args_str +"' />")
+        document.write("<link rel='stylesheet' type='text/css' href='/css/online_lnr.css" + args_str +"' />")
+        document.write("<link rel='stylesheet' media='(max-width: 320px)' href='/css/online_lnr_320.css" + args_str +"' />")
+        document.write("<link rel='stylesheet' media='(max-width: 360px)' href='/css/online_lnr_360.css" + args_str +"' />")
+        document.write("<link rel='stylesheet' media='(max-width: 400px)' href='/css/online_lnr_400.css" + args_str +"' />")
+        document.write("<link rel='stylesheet' media='(max-width: 720px)' href='/css/online_lnr_720.css" + args_str +"' />")
+        // document.write("<link rel='stylesheet' media='(max-width: 750px)' href='/css/online_lnr_750.css" + args_str +" />")
+        // document.write("<link rel='stylesheet' media='(max-width: 768px)' href='/css/online_lnr_768.css" + args_str +"' />")
+        // document.write("<link rel='stylesheet' media='(max-width: 828px)' href='/css/online_lnr_828.css" + args_str +"' />")
+        // document.write("<link rel='stylesheet' media='(max-width: 1080px)' href='/css/online_lnr_1080.css" + args_str +"' />")
     </script>
 
-    <script type="text/javascript" src="/static/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
@@ -36,7 +36,7 @@
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <h1 class="header-logo">
                         <a class="header-logo-img" href="/">
-                            <img src="/static/imgs/machine_eye.jpg" class="machine_eye">
+                            <img src="/imgs/online_lnr/machine_eye.jpg" class="machine_eye">
                         </a>
                     </h1>
                 </div>
@@ -65,7 +65,7 @@
                         <li class="menu-item ">
                             <a href="https://github.com/himrkeyboard/OnlineLNR" class="menu-item ">
                                 <i class="fa fa-heart"></i>
-                                <img src="/static/imgs/github_logo.png" class="github_logo">
+                                <img src="/imgs/online_lnr/github_logo.png" class="github_logo">
                             </a>
                         </li>
                     </ul>
@@ -94,7 +94,7 @@
                 <li class="menu-item ">
                     <a href="https://github.com/himrkeyboard/OnlineLNR" class="menu-item ">
                         <i class="fa fa-heart"></i>
-                        <img src="/static/imgs/github_logo.png" class="github_logo">
+                        <img src="/imgs/online_lnr/github_logo.png" class="github_logo">
                     </a>
                 </li>
             </ul>
@@ -103,7 +103,7 @@
     <div id="drag-area">
         <div class="container">
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                <img class="big_logo" src="/static/imgs/car.png">
+                <img class="big_logo" src="/imgs/online_lnr/car.png">
             </div>
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
                 <div>
@@ -135,7 +135,7 @@
                         disabled="disabled">开始识别</button>
                 </div>
                 <div>
-                    <img id="convert-arrow" class="convert-arrow" src="/static/imgs/arrow.png">
+                    <img id="convert-arrow" class="convert-arrow" src="/imgs/online_lnr/arrow.png">
                 </div>
             </div>
         </div>
@@ -143,7 +143,7 @@
     <div class="container content-box">
         <div class="row description">
             <div class="col-md-6 result_photo_div">
-                <img id="result_photo" class="result_photo" src="/static/imgs/default_car.jpg">
+                <img id="result_photo" class="result_photo" src="/imgs/online_lnr/default_car.jpg">
             </div>
             <div class="mobile_blank_div"></div>
             <div id="car_div" class="col-md-6 car_div">
@@ -224,22 +224,22 @@
                 </p>
                 <ul id="browser-support">
                     <li>
-                        <img src="/static/imgs/chrome_24x24-a7ca66e6b4.png" class="browser_icon">Chrome 4+
+                        <img src="/imgs/online_lnr/chrome_24x24-a7ca66e6b4.png" class="browser_icon">Chrome 4+
                     </li>
                     <li>
-                        <img src="/static/imgs/safari_24x24-4b9304e7c1.png" class="browser_icon">Safari 3.1+
+                        <img src="/imgs/online_lnr/safari_24x24-4b9304e7c1.png" class="browser_icon">Safari 3.1+
                     </li>
                     <li>
-                        <img src="/static/imgs/firefox_24x24-9cb479bf41.png" class="browser_icon">Firefox 2+
+                        <img src="/imgs/online_lnr/firefox_24x24-9cb479bf41.png" class="browser_icon">Firefox 2+
                     </li>
                     <li>
-                        <img src="/static/imgs/opera_24x24-1e135b7c74.png" class="browser_icon">Opera 9+
+                        <img src="/imgs/online_lnr/opera_24x24-1e135b7c74.png" class="browser_icon">Opera 9+
                     </li>
                     <li>
-                        <img src="/static/imgs/edge_24x24-11efc6ad6b.png" class="browser_icon">Edge
+                        <img src="/imgs/online_lnr/edge_24x24-11efc6ad6b.png" class="browser_icon">Edge
                     </li>
                     <li>
-                        <img src="/static/imgs/ie9-10_24x24-4a2e4800a5.png" class="browser_icon">IE 8+
+                        <img src="/imgs/online_lnr/ie9-10_24x24-4a2e4800a5.png" class="browser_icon">IE 8+
                     </li>
                 </ul>
             </div>
@@ -258,7 +258,7 @@
         var ver = Math.random()
         var js = document.createElement("script")
         js.type= "text/javascript"
-        js.src = "/static/js/index.js?ver=" + Math.random()
+        js.src = "/js/index.js?ver=" + Math.random()
         document.body.appendChild(js)
     </script>
 </body>
