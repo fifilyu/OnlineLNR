@@ -9,6 +9,8 @@
 CFG_UPLOAD_FOLDER = 'public/imgs/uploads'
 # 识别结果文件
 CFG_RESULT_FOLDER = 'public/imgs/results'
+# 默认结果文件
+CFG_DEFAULT_RESULT_IMG = '/imgs/online_lnr/default_car.jpg'
 # 允许用户上传的图片类型
 CFG_ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 # Flask安全密钥

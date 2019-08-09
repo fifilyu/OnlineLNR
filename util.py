@@ -9,7 +9,7 @@ from werkzeug.utils import secure_filename
 from config import CFG_ALLOWED_EXTENSIONS
 from config import CFG_RESULT_FOLDER
 from config import CFG_UPLOAD_FOLDER
-from pathlib import Path
+from config import CFG_DEFAULT_RESULT_IMG
 from PIL import Image
 from PIL import ImageDraw
 
@@ -76,7 +76,7 @@ def make_api_response(status: int,
                       msg: str,
                       plate='',
                       confidence=0.0,
-                      result_photo='',
+                      result_photo=CFG_DEFAULT_RESULT_IMG,
                       location=None,
                       img_dpi=(),
                       img_format='',
