@@ -6,6 +6,9 @@ function show_car_info(api_data) {
     if (api_data.status == "0") {
         document.getElementById("result_photo").src = "/imgs/results/" + api_data.result_photo;
         document.getElementById("span_msg").className = "success";
+    } else if(api_data.status == "2") {
+        document.getElementById("result_photo").src = api_data.result_photo;
+        document.getElementById("span_msg").className = "failed";
     } else {
         document.getElementById("result_photo").src = "/imgs/uploads/" + api_data.result_photo;
         document.getElementById("span_msg").className = "failed";
@@ -39,18 +42,21 @@ function load_listener() {
     }
 
     if (this.status == 413) {
+        api_data.status = 1
         api_data.message = "图片大于2M无法识别"
         show_car_info(api_data);
         return;
     }
 
-    if (this.status !== 200) {
+    if (this.status != 200) {
+        api_data.status = 2
         api_data.message = "接口请求失败"
         show_car_info(api_data);
         return;
     }
 
     if (this.responseText == null) {
+        api_data.status = 2
         api_data.message = "接口请求失败，返回值为空"
         show_car_info(api_data);
         return;
