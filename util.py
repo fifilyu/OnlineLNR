@@ -109,7 +109,7 @@ def make_api_response(status: int,
     :return:
     """
     if location is None:
-        location = []
+        location = [(0, 0), (0, 0), (0, 0), (0, 0)]
 
     api_response = {
         'status': status,
