@@ -4,8 +4,8 @@ __pycache__/
 *$py.class
 
 .idea/
-static/uploads/*
-static/results/*
+public/imgs/uploads/
+public/imgs/results/
 
 # C extensions
 *.so
