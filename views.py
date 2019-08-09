@@ -14,6 +14,7 @@ from util import mark_photo
 from util import make_api_response
 from util import check_uploaded_file1
 from util import check_uploaded_file2
+from util import check_uploaded_file3
 from util import save_photo
 
 
@@ -28,7 +29,7 @@ def recognize():
     photo = request.files.get('photo')
 
     if not check_uploaded_file2(photo.filename):
-        return make_api_response(2, '接收到空图片。请选择上传文件')
+        return make_api_response(2, '未接收到任何图片，请重新上传图片')
 
     if not (photo and allowed_file(photo.filename)):
         return make_api_response(2, '上传的文件格式无效。')
@@ -38,6 +39,9 @@ def recognize():
 
     if not photo_path.is_file():
         return make_api_response(2, '图片文件上传失败')
+
+    if not check_uploaded_file3(relative_path):
+        return make_api_response(2, '图片大小为0，请重新上传图片')
 
     image = Image.open(relative_path)
     img_dpi = "%dx%d" % (image.size[0], image.size[1])

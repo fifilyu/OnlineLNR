@@ -72,6 +72,17 @@ def check_uploaded_file2(filename: str):
     return filename != ''
 
 
+def check_uploaded_file3(filename: str):
+    """
+    检查用户上传的文件大小
+    :param  filename: 用户上传的文件名称
+    :return:
+    """
+
+    size = os.path.getsize(filename)
+    return size != 0
+
+
 def make_api_response(status: int,
                       msg: str,
                       plate='',
