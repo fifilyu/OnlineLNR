@@ -85,7 +85,7 @@ def make_api_response(status: int,
     """
     根据参数生成接口数据结构
 
-    :param status: 接口状态。0表示成功，1表示失败
+    :param status: 接口状态。0表示成功
     :param msg: 提示信息
     :param plate: 车牌号码
     :param confidence: 可信度
@@ -101,7 +101,7 @@ def make_api_response(status: int,
         location = []
 
     api_response = {
-        'status': status if status in [0, 1] else 1,
+        'status': status,
         'message': msg,
         'plate': plate,
         'result_photo': result_photo,
