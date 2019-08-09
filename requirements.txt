@@ -4,3 +4,4 @@ flask
 hyperlpr
 Pillow
 opencv-python
+gunicorn
