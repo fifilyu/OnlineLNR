@@ -37,7 +37,7 @@ def recognize():
     photo_path = Path(relative_path)
 
     if not photo_path.is_file():
-        return make_api_response(1, '图片文件上传失败')
+        return make_api_response(2, '图片文件上传失败')
 
     image = Image.open(relative_path)
     img_dpi = "%dx%d" % (image.size[0], image.size[1])
