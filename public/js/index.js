@@ -29,12 +29,12 @@ function show_car_info(api_data) {
 
 function load_listener() {
     api_data = {
-        "status": 1,
+        "status": 2,
         "message": "",
         "plate": "未识别",
         "result_photo": "/imgs/online_lnr/default_car.jpg",
         "confidence": 0.0,
-        "location": [0, 0, 0, 0],
+        "location": {"location": [0, 0, 0, 0]},
         "img_dpi": "未识别",
         "img_format": "未识别",
         "img_size": "未识别",
@@ -93,7 +93,20 @@ function check_photo_size(photo) {
     MAX_SIZE = 2 * 1024 * 1024;
 
     if (photo.size > MAX_SIZE) {
-        show_car_info("图片不能大于2M，请重新选择图片", "/imgs/online_lnr/default_car.jpg", "未识别", [0, 0, 0, 0], "未识别", "failed");
+        api_data = {
+            "status": 2,
+            "message": "",
+            "plate": "未识别",
+            "result_photo": "/imgs/online_lnr/default_car.jpg",
+            "confidence": 0.0,
+            "location": {"location": [0, 0, 0, 0]},
+            "img_dpi": "未识别",
+            "img_format": "未识别",
+            "img_size": "未识别",
+            "used_time": "未识别"
+        }
+
+        show_car_info(api_data);
         alert("图片不能大于2M，请重新选择图片");
         return 1;
     }
