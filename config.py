@@ -8,7 +8,7 @@
 # 用户上传图片保存路径
 CFG_UPLOAD_FOLDER = 'static/uploads'
 # 识别结果文件
-CFG_RESULT_FOLDER = 'static/result'
+CFG_RESULT_FOLDER = 'static/results'
 # 允许用户上传的图片类型
 CFG_ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 # Flask安全密钥
