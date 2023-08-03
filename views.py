@@ -48,7 +48,7 @@ def recognize():
     img_format = image.format
     img_size = "%dKB" % (os.path.getsize(relative_path) / 1024)
 
-    start = time.clock()
+    start = time.process_time()
     # 识别车牌号码
     image = cv2.imread(relative_path)
 
@@ -61,7 +61,7 @@ def recognize():
                                  img_size=img_size)
 
     result_list = HyperLPR_plate_recognition(image)
-    elapsed = "%.2fs" % (time.clock() - start)
+    elapsed = "%.2fs" % (time.process_time() - start)
 
     if not (result_list and len(result_list) == 1) or not (result_list[0] and len(result_list[0]) == 3):
         return make_api_response(status=1,
