@@ -2,19 +2,19 @@
 # -*- coding: utf-8 -*-
 import os
 import time
-
-import cv2
 from pathlib import Path
 
+import cv2
+import hyperlpr3 as lpr3
 from PIL import Image
 from flask import request
-from hyperlpr import HyperLPR_plate_recognition
+
 from util import allowed_file
-from util import mark_photo
-from util import make_api_response
 from util import check_uploaded_file1
 from util import check_uploaded_file2
 from util import check_uploaded_file3
+from util import make_api_response
+from util import mark_photo
 from util import save_photo
 
 
@@ -60,7 +60,8 @@ def recognize():
                                  img_format=img_format,
                                  img_size=img_size)
 
-    result_list = HyperLPR_plate_recognition(image)
+    catcher = lpr3.LicensePlateCatcher()
+    result_list = catcher(image)
     elapsed = "%.2fs" % (time.process_time() - start)
 
     if not (result_list and len(result_list) == 1) or not (result_list[0] and len(result_list[0]) == 3):
