@@ -8,7 +8,7 @@ from pathlib import Path
 
 from PIL import Image
 from flask import request
-from hyperlpr import HyperLPR_PlateRecogntion
+from hyperlpr import HyperLPR_plate_recognition
 from util import allowed_file
 from util import mark_photo
 from util import make_api_response
@@ -60,7 +60,7 @@ def recognize():
                                  img_format=img_format,
                                  img_size=img_size)
 
-    result_list = HyperLPR_PlateRecogntion(image)
+    result_list = HyperLPR_plate_recognition(image)
     elapsed = "%.2fs" % (time.clock() - start)
 
     if not (result_list and len(result_list) == 1) or not (result_list[0] and len(result_list[0]) == 3):
