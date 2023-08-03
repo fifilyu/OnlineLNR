@@ -1,6 +1,6 @@
 werkzeug
 flask
-hyperlpr
+hyperlpr3
 Pillow
 opencv-python
 gunicorn
