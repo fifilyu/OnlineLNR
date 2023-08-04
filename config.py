@@ -6,11 +6,11 @@
 """
 
 # 用户上传图片保存路径
-CFG_UPLOAD_FOLDER = 'public/imgs/uploads'
+CFG_UPLOAD_FOLDER = 'public/image/uploads'
 # 识别结果文件
-CFG_RESULT_FOLDER = 'public/imgs/results'
+CFG_RESULT_FOLDER = 'public/image/results'
 # 默认结果文件
-CFG_DEFAULT_RESULT_IMG = '/imgs/online_lnr/default_car.jpg'
+CFG_DEFAULT_RESULT_IMG = '/image/online_lnr/default_car.jpg'
 # 允许用户上传的图片类型
 CFG_ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 # Flask安全密钥
