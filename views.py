@@ -64,7 +64,7 @@ def recognize():
     result_list = catcher(image)
     elapsed = "%.2fs" % (time.process_time() - start)
 
-    if not (result_list and len(result_list) == 1) or not (result_list[0] and len(result_list[0]) == 3):
+    if not (result_list and len(result_list) == 1) or not (result_list[0] and len(result_list[0]) == 4):
         return make_api_response(status=1,
                                  msg='操作成功，但未找到有效车牌号',
                                  result_photo=photo_path.name,
@@ -75,7 +75,7 @@ def recognize():
 
     plate = result_list[0][0]
     confidence = result_list[0][1]
-    location = result_list[0][2]
+    location = result_list[0][3]
 
     top_left_x = location[0]
     top_left_y = location[1]
