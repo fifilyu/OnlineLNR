@@ -1,16 +1,16 @@
 function show_car_info(api_data) {
-    document.getElementById("result_photo").src = "/imgs/results/" + api_data.result_photo;
+    document.getElementById("result_photo").src = "/image/results/" + api_data.result_photo;
 
     document.getElementById("span_msg").innerHTML = api_data.message;
 
     if (api_data.status == "0") {
-        document.getElementById("result_photo").src = "/imgs/results/" + api_data.result_photo;
+        document.getElementById("result_photo").src = "/image/results/" + api_data.result_photo;
         document.getElementById("span_msg").className = "success";
     } else if(api_data.status == "2") {
         document.getElementById("result_photo").src = api_data.result_photo;
         document.getElementById("span_msg").className = "failed";
     } else {
-        document.getElementById("result_photo").src = "/imgs/uploads/" + api_data.result_photo;
+        document.getElementById("result_photo").src = "/image/uploads/" + api_data.result_photo;
         document.getElementById("span_msg").className = "failed";
     }
 
@@ -32,7 +32,7 @@ function load_listener() {
         "status": 2,
         "message": "",
         "plate": "未识别",
-        "result_photo": "/imgs/online_lnr/default_car.jpg",
+        "result_photo": "/image/online_lnr/default_car.jpg",
         "confidence": 0.0,
         "location": {"location": [0, 0, 0, 0]},
         "img_dpi": "未识别",
@@ -97,7 +97,7 @@ function check_photo_size(photo) {
             "status": 2,
             "message": "",
             "plate": "未识别",
-            "result_photo": "/imgs/online_lnr/default_car.jpg",
+            "result_photo": "/image/online_lnr/default_car.jpg",
             "confidence": 0.0,
             "location": {"location": [0, 0, 0, 0]},
             "img_dpi": "未识别",

@@ -4,8 +4,8 @@ __pycache__/
 *$py.class
 
 .idea/
-public/imgs/uploads/
-public/imgs/results/
+public/image/uploads/
+public/image/results/
 gunicorn_config.py
 
 var/

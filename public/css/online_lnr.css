@@ -113,7 +113,7 @@ a.no-decoration {
 }
 
 #menu .menu-item-current a:after {
-    background: url(/imgs/online_lnr/current-menu-item.png) no-repeat;
+    background: url(/image/online_lnr/current-menu-item.png) no-repeat;
     bottom: -9px;
     content: "";
     display: block;
